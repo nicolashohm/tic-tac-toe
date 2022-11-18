@@ -3,8 +3,8 @@ from Board import Board
 
 class Computer:
     CORNERS = (0, 2, 6, 8)
-    COMPUTER_PLAYER = 0
-    REAL_PLAYER = 1
+    REAL_PLAYER = Board.PLAYER_1
+    COMPUTER_PLAYER = Board.PLAYER_2
 
     def __init__(self, board: Board) -> None:
         self.board = board

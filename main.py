@@ -19,11 +19,15 @@ def render_board(board: Board):
 
 board = Board()
 computer = Computer(board)
-board.tick(0, 1)
+board.tick(0, Board.PLAYER_1)
 board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
-board.tick(4, 1)
+board.tick(4, Board.PLAYER_1)
 board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
-board.tick(5, 1)
+board.tick(5, Board.PLAYER_1)
 board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
 
 print(render_board(board))
+
+print(board.get_lines())
+
+print(board.get_winner())
