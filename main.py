@@ -10,9 +10,9 @@ from Computer import Computer
 
 def render_board(board: Board):
     content = ''
-    for offset in [0, 3, 6]:
+    for row in board.get_rows():
         content = f'{content}\n' + "\t|\t".join(
-            map(lambda x: '_' if x is None else str(x), board.board[offset:offset + 3])
+            map(lambda x: '_' if x is None else str(x), row.values())
         )
     return content
 
@@ -24,6 +24,8 @@ board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
 board.tick(4, Board.PLAYER_1)
 board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
 board.tick(5, Board.PLAYER_1)
+board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
+board.tick(1, Board.PLAYER_1)
 board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
 
 print(render_board(board))

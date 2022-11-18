@@ -1,9 +1,9 @@
 class Board:
     BOARD_SIZE = 9
-    PLAYER_1 = 'X'
-    PLAYER_2 = 'O'
+    PLAYER_1 = 'P'
+    PLAYER_2 = 'C'
     PLAYERS = (PLAYER_1, PLAYER_2)
-    board = [None] * BOARD_SIZE
+    board = dict(zip(range(0, 9), [None] * BOARD_SIZE))
 
     def tick(self, position: int, player: int):
         if player not in self.PLAYERS:
@@ -25,18 +25,20 @@ class Board:
                 return unique_line[0]
         return None
 
-    def get_rows(self):
-        rows = []
-        for offset in [0, 3, 6]:
-            rows.append(self.board[offset:offset + 3])
+    def get_fields_by_positions(self, positions):
+        return {position: self.board[position] for position in positions}
 
-        return rows
+    def get_rows(self):
+        return [self.get_fields_by_positions(range(offset, offset + 3)) for offset in [0, 3, 6]]
 
     def get_columns(self):
-        return [self.board[offset::3] for offset in range(0, 3)]
+        return [self.get_fields_by_positions(range(offset, self.BOARD_SIZE, 3)) for offset in range(0, 3)]
 
     def get_diagonals(self):
-        return [self.board[0::4], self.board[2:7:2]]
+        return [
+            self.get_fields_by_positions(range(0, self.BOARD_SIZE, 4)),
+            self.get_fields_by_positions(range(2, 7, 2)),
+        ]
 
     def get_lines(self):
         return self.get_rows() + self.get_columns() + self.get_diagonals()

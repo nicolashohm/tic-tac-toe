@@ -21,13 +21,21 @@ class Computer:
             if self.board.board[corner] is self.COMPUTER_PLAYER:
                 return corner
 
-    def is_player_about_to_win(self):
-        dangerous_state = {3: None, 4: 1, 5: 1}
-        return self.board.board[3:6] == list(dangerous_state.values())
+    def get_winning_move_for(self, player):
+        for line in self.board.get_lines():
+            line_list = list(line.values())
+            if line_list.count(player) == 2 and line_list.count(None) == 1:
+                return list(line.keys())[line_list.index(None)]
+        return None
 
     def compute_next_move(self):
-        if self.is_player_about_to_win():
-            return 3
+        winning_move_for_computer = self.get_winning_move_for(self.COMPUTER_PLAYER)
+        if winning_move_for_computer:
+            return winning_move_for_computer
+
+        winning_move_for_real_player = self.get_winning_move_for(self.REAL_PLAYER)
+        if winning_move_for_real_player:
+            return winning_move_for_real_player
 
         neighbor_corners = {0: (2, 6), 2: (0, 8), 6: (0, 8), 8: (2, 6)}
         ticked_corner = self.find_ticked_corner()
