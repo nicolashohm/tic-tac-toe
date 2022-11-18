@@ -19,17 +19,15 @@ def render_board(board: Board):
 
 board = Board()
 computer = Computer(board)
-board.tick(0, Board.PLAYER_1)
-board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
-board.tick(4, Board.PLAYER_1)
-board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
-board.tick(5, Board.PLAYER_1)
-board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
-board.tick(1, Board.PLAYER_1)
-board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
 
-print(render_board(board))
+# Test game 1: 0, 4, 5, 1
+# Test game 2: 0, 8, 6, 3
+while board.is_possible_move() and not board.get_winner():
+    next_move = input('What is your next move? ')
+    board.tick(int(next_move), Computer.REAL_PLAYER)
+    if board.get_winner():
+        break
+    board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
+    print(render_board(board))
 
-print(board.get_lines())
-
-print(board.get_winner())
+print('The winner is: ' + board.get_winner())

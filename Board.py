@@ -18,11 +18,14 @@ class Board:
     def is_free(self, position: int):
         return self.board[position] is None
 
+    def is_possible_move(self):
+        return list(self.board.values()).count(None) > 0
+
     def get_winner(self):
         for line in self.get_lines():
-            unique_line = set(line)
+            unique_line = set(line.values())
             if len(unique_line) == 1:
-                return unique_line[0]
+                return next(iter(unique_line))
         return None
 
     def get_fields_by_positions(self, positions):
