@@ -23,11 +23,11 @@ computer = Computer(board)
 # Test game 1: 0, 4, 5, 1
 # Test game 2: 0, 8, 6, 3
 while board.is_possible_move() and not board.get_winner():
-    next_move = input('What is your next move? ')
-    board.tick(int(next_move), Computer.REAL_PLAYER)
-    if board.get_winner():
-        break
     board.tick(computer.compute_next_move(), Computer.COMPUTER_PLAYER)
     print(render_board(board))
+    if board.get_winner():
+        break
+    next_move = input('What is your next move? ')
+    board.tick(int(next_move), Computer.REAL_PLAYER)
 
 print('The winner is: ' + board.get_winner())
