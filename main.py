@@ -12,7 +12,7 @@ def render_board(board: Board):
     content = ''
     for row in board.get_rows():
         content = f'{content}\n' + "\t|\t".join(
-            map(lambda x: '_' if x is None else str(x), row.values())
+            [f'{k}: {"_" if v is None else v}' for k, v in row.items()]
         )
     return content
 
